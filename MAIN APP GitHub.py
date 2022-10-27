@@ -48,7 +48,7 @@ Ht_xyz = []
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.title = 'Detail Survey Processing'
+        self.title = 'Detail and Traverse Survey Processing'
         self.left = 0
         self.top = 0
         self.width = 300
@@ -668,9 +668,16 @@ class MyTableWidget(QWidget):
             bearings_rad = []
             for i in bearings:
                 bearings_rad.append(dd_to_rad(i))
+
+            VBrad = []
+            for i in range(len(V_bearing)):
+                
+                x = dd_to_rad(V_bearing[i])
+                VBrad.append(x)
+
             DeltaE_list_unrounded = [x*math.sin(y) for x,y in zip(HD_red2,bearings_rad)]
             DeltaN_list_unrounded = [x*math.cos(y) for x,y in zip(HD_red2,bearings_rad)]
-            DeltaH_list_unrounded = [x*math.cos(y) + (a - b) for x,y,a,b in zip(SD_red2,V_bearing, Hi_red2, Ht_red2)]
+            DeltaH_list_unrounded = [x*math.cos(y) + (a - b) for x,y,a,b in zip(SD_red2,VBrad, Hi_red2, Ht_red2)]
             bearings_DMS_Str = []
             for i in range(len(bearings)):
                 bearings_DMS_Str.append(DDtoDMS_Str(bearings[i]))
@@ -819,7 +826,7 @@ class MyTableWidget(QWidget):
                 f.write('H = delta H + Coordinate at the previous point')
                 f.write('\n')
                 f.write('\n')
-            sentence = str(From_To[0]) + '(Known):'
+            sentence = str(From_Stn_red2[0]) + '(Known):'
             f.write(sentence)
             f.write('\n')
             sentence = 'E: = ' + str(Start_Easting)
@@ -886,8 +893,16 @@ class MyTableWidget(QWidget):
             H_prevs = []
             H_prevs.append(Start_Height)
             Heights = []
-            for i in range(len(last_DeltaH_list)):
-                x = last_DeltaH_list[i] + H_coord_prev
+            
+            
+            for i in range(len(DeltaH_list)):
+                x = DeltaH_list[i] + H_coord_prev
+            
+            
+            # for i in range(len(last_DeltaH_list)):
+            #     x = last_DeltaH_list[i] + H_coord_prev
+                
+                
                 x = round(x, 3)
                 Heights.append(x) 
                 H_coord_prev = x
