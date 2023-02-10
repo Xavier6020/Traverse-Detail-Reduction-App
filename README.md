@@ -1,5 +1,5 @@
 # Traverse-Detail-Reduction-App
-This code uses Qt5 to create a windowed application. The application is cabable of reducing traverse and detail survey observations that come are formatted in an excel file. The code also allows the user to input  values that a typical detail survey would cover and reduce said observations from there. 
+This code uses Qt5 to create a windowed application. The application is capable of reducing traverse and detail survey observations that come are formatted in an excel file. The code also allows the user to input  values that a typical detail survey would cover and reduce said observations from there. 
 The code for the application is breakable and relise on the user input following correct units. The units given must be as follows:
 
 installation requirments
